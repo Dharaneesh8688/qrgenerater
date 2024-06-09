@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        body{
+            background-image: url(download.jpg);
+           background-size: cover;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100vh;
+            display: grid;
+            align-items: center;
+            justify-items: center;
+        }
+        h2{
+            font-size: 50px;
+            color: red;
+            
+        }
+        input{
+            width:550px;
+            height: 50px;
+            font-size: larger;
+            text-align: center;
+        }
+        canvas{
+           margin-top: 20px;
+           margin-left: 140px;
+        }
+        a{
+background-color: blue;
+color: white;
+width: 200PX;
+height: 40px;
+padding-top: 10px;
+margin-top: 20px;
+text-align: center;
+border-radius: 3PX;
+margin-left: 200PX;
+text-decoration: none;
+font-size: larger;
+        }
+        #gen{
+            width:100px;
+            height: 50px;
+            font-size: larger;
+            text-align: center;
+            background-color: rgb(27, 181, 61);
+            border: none;
+        }
+      
+        
+    </style>
+  <body>
+    <div>
+        <h2>QR CODE GENERATER</h2>
+        <input type="text" id="text-input" placeholder="Enter URL Or Text "><button onclick="generateQRCode() " id="gen">generate</button><br>
+        <canvas id="qr"></canvas>
+        <a id="downloadLink" download="qrcode.png" style="display: none;">Download QR Code</a>
+
+    </div>
+   
+
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+    
+    <script>
+        const print = document.querySelector("#print");
+      const inputField = document.querySelector("#text-input");
+      const downloadLink = document.getElementById('downloadLink');
+      inputField.addEventListener("keypress", function(event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          generateQRCode();
+        } });
+      function generateQRCode() {  
+        const inputValue = inputField.value; 
+        var qr = new QRious({
+          element: document.getElementById('qr'),
+          value: inputValue,
+          background: 'white',
+          padding: 30,
+          size:300
+        });
+        
+        downloadLink.href = qr.toDataURL('image/png');
+        downloadLink.style.display = 'block';
+      }
+     
+    </script>
+  </body>
+</html>
